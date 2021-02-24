@@ -1,7 +1,7 @@
 # NOTE: update this with your service name
 service: josp-photo-aws-api
 
-# Create an optimized package for our functions 
+# Create an optimized package for our functions
 package:
   individually: true
 
@@ -45,6 +45,7 @@ functions:
       - http:
           path: josp-photography
           method: post
+          cors: true
           authorizer: aws_iam
   get:
     # Defines an HTTP API endpoint that calls the main function in get.js
@@ -55,6 +56,7 @@ functions:
       - http:
           path: josp-photography/{id}
           method: get
+          cors: true
           authorizer: aws_iam
   list:
     # Defines an HTTP API endpoint that calls the main function in list.js
@@ -65,6 +67,7 @@ functions:
       - http:
           path: josp-photography
           method: get
+          cors: true
           authorizer: aws_iam
   update:
     # Defines an HTTP API endpoint that calls the main function in update.js
@@ -75,6 +78,7 @@ functions:
       - http:
           path: josp-photography/{id}
           method: put
+          cors: true
           authorizer: aws_iam
   delete:
     # Defines an HTTP API endpoint that calls the main function in delete.js
@@ -85,4 +89,10 @@ functions:
       - http:
           path: josp-photography/{id}
           method: delete
+          cors: true
           authorizer: aws_iam
+
+# Create our resources with separate CloudFormation templates
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
